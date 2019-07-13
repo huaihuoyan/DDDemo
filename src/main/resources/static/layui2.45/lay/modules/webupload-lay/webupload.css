@@ -1,0 +1,82 @@
+.wu-example .btns{
+    width: 210px;
+}
+
+.webuploader-container {
+    position: relative;
+}
+.webuploader-element-invisible {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px,1px,1px,1px);
+}
+.webuploader-pick {
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+    display: inline-block;
+    border-radius: 100px;
+    background: #00b7ee;
+    padding: 10px 15px;
+    color: #fff;
+}
+.webuploader-pick-hover {
+    /*background: #00a2d4;*/
+}
+
+.webuploader-pick-disable {
+    opacity: 0.6;
+    pointer-events:none;
+}
+/*上传按钮*/
+#uploader #ctlBtn {
+    float: right;
+    width: 95px;
+    height: 41px;
+    border-radius: 100px;
+    font-size: 15px;
+    cursor: pointer;
+    background: #fff;
+    color: #000;
+    border: 1px solid #C9C9C9;;
+}
+.hide{display: none}
+.hand{cursor: pointer;}
+#uploader #ctlBtn:hover {
+    background: #fff;
+    border-color: #00a2d4;
+}
+
+/*上传队列*/
+.fileListClass{
+
+}
+/*队列容器*/
+.fileListClass .listDivClass{
+    padding: 1px 1px 1px 0;
+
+}
+/*状态框*/
+.fileListClass .state{
+    margin-left: 410px;
+    margin-top: 6px;
+    font-size: 16px;
+    line-height: 23px;
+    height: 23px;
+
+}
+.successText{
+    font-size: 16px;
+    color: #ffffff;
+    background-color:#33ab9f ;
+    margin-bottom: 3%;
+}
+.fileListClass .downloadBtn{
+    margin-left: 20px;
+}
+/*进度条*/
+.fileListClass .listDivClass .percentClass{
+
+
+}

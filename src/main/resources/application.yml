@@ -1,0 +1,22 @@
+server:
+  port: 9050
+  servlet:
+    context-path: /DDDemo
+#添加mvc映射
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+
+shareFolder:
+  folderName: /车生活需要导入的会员excel
+  ip: 192.168.101.59
+  userName: dmz
+  password: 127721
+
+environ:
+  upload:
+    #保存根路径
+    url: D:/fileStorage/uploads/
