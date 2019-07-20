@@ -2,12 +2,32 @@ server:
   port: 9050
   servlet:
     context-path: /DDDemo
+
+debug: true
 #添加mvc映射
 spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
   mvc:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java #设置重启的目录
+      exclude: WEB-INF/**   #classpath目录下的WEB-INF文件夹内容修改不重启
+  freemarker:
+    cache: false    #页面不加载缓存，修改即时生效
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.huai.web.entity
 
 
 shareFolder:
@@ -20,3 +40,12 @@ environ:
   upload:
     #保存根路径
     url: D:/fileStorage/uploads/
+
+logging:
+    config:
+      classpath: logback-spring.xml
+    path: D:\ideahome\DDDemo\log
+    level:
+      com:
+        huai:
+          dao: debug

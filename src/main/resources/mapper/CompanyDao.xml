@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huai.web.dao.CompanyDao">
+    <resultMap id="company" type="com.huai.web.entity.Company">
+        <result column="FID" property="id" />
+        <result column="COMPANYNAME" property="title"/>
+        <result column="FPARID" property="parentId" />
+        <result column="CLEVEL" property="level"  />
+    </resultMap>
+    <!--查询-->
+    <select id="selectAll" resultMap="company">
+        select FID  ,COMPANYNAME ,FPARID,CLEVEL  from H_COMPANY
+    </select>
+    <!--分页查询-->
+    <select id="selectA" resultMap="company">
+     <!--select * from (-->
+        <!--select A.*,ROWNUM RN FROM(-->
+          <!--select A.FID  ,A.COMPANYNAME ,A.FPARID,A.CLEVEL  from H_COMPANY)A-->
+        <!--<where>-->
+            <!--<if test="after !=null and after != '' ">-->
+                <!--and  ROWNUM   <![CDATA[<=]]> #{after}-->
+            <!--</if>-->
+        <!--</where>-->
+        <!--)-->
+        <!--<where>-->
+
+            <!--<if test="before !=null and before != '' ">-->
+                <!--and  RN <![CDATA[>=]]> #{before}-->
+            <!--</if>-->
+        <!--</where>-->
+    </select>
+
+    <select id="selectcount" resultType="int">
+        select count(*) from H_COMPANY
+    </select>
+
+</mapper>
