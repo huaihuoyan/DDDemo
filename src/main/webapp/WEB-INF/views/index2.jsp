@@ -97,6 +97,8 @@
                                data-url="<%=path%>/gs/look" class="site-demo-active"data-type="taAdd" >公司1</a></dd>
                         <dd><a href="#;" data-id="gs2" data-title="公司2"
                                data-url="<%=path%>/gs/look2" class="site-demo-active"data-type="taAdd" >公司2</a></dd>
+                        <dd><a href="#;" data-id="gs3" data-title="公司3"
+                               data-url="<%=path%>/gs/look3" class="site-demo-active"data-type="taAdd" >公司3</a></dd>
                     </dl>
                 </li>
             </ul>

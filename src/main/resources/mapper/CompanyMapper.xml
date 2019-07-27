@@ -28,10 +28,16 @@
                 <!--and  RN <![CDATA[>=]]> #{before}-->
             <!--</if>-->
         <!--</where>-->
+        select FID,COMPANYNAME,FPARID,CLEVEL  from H_COMPANY limit #{before} ,#{after}
     </select>
 
     <select id="selectcount" resultType="int">
         select count(*) from H_COMPANY
+    </select>
+
+    <!--查询-->
+    <select id="selectP" resultMap="company">
+        select FID  ,COMPANYNAME ,FPARID,CLEVEL  from H_COMPANY
     </select>
 
 </mapper>

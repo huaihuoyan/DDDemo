@@ -1,5 +1,7 @@
 package com.huai.web.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.huai.result.Respon;
 import com.huai.result.Result;
 import com.huai.result.ResultEnum;
@@ -35,12 +37,23 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Result selectA(Integer page, Integer limit) {
-        Integer   before = limit * (page - 1) + 1;
-        Integer   after = limit * page;
-        List<Company> companies = companyDao.selectA(before,after);
+        Integer   before = limit * (page - 1);
+        Integer   after = limit;
+        List<Company> companies = companyDao.selectA(before,limit);
         Integer count = companyDao.selectcount();
         Result result = new Result(ResultEnum.OK,companies);
-        result.setCode(count);
+        result.setCount(count);
+        return result;
+    }
+
+    @Override
+    public Result selectP(int curr, int limit) {
+        PageHelper.startPage(curr,limit);
+       List<Company> companies = companyDao.selectP();
+       Result result = new Result(ResultEnum.OK,companies);
+        PageInfo page = new PageInfo(companies);
+        result.setCount(page.getPageSize());
+        result.setData(page.getTotal());
         return result;
     }
 

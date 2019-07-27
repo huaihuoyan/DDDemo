@@ -49,4 +49,18 @@ public class CompanyController {
         Result res = companyService.selectA(page,limit);
         return res;
     }
+
+    @RequestMapping("/look3")
+    public ModelAndView look3(){
+        ModelAndView mav   =   new ModelAndView();
+        mav.setViewName("company3");
+        return mav;
+    }
+
+    @RequestMapping("/selectP")
+    @ResponseBody
+    public Result slelectP(int curr, int limit){
+        Result res = companyService.selectA(curr,limit);
+        return res;
+    }
 }

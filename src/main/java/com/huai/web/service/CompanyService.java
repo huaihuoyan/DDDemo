@@ -17,4 +17,6 @@ public interface CompanyService {
                    Integer limit
     );
 
+    Result selectP(int curr, int limit);
+
 }

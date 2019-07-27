@@ -29,4 +29,6 @@ public interface CompanyDao {
     );
 
     Integer selectcount();
+
+    List<Company>selectP();
 }
