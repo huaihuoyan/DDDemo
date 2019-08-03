@@ -54,6 +54,12 @@ logging:
       classpath: logback-spring.xml
     path: D:\ideahome\DDDemo\log
     level:
-      com:
-        huai:
-          dao:  debug
+      org:
+        springframework:
+          boot:
+            autoconfigure: ERROR
+    com:
+      huai:
+        dao:  debug
+
+

@@ -1,5 +1,7 @@
 package com.huai.web.service;
 
+import com.huai.web.entity.User;
+
 import java.util.Map;
 
 /**
@@ -8,17 +10,13 @@ import java.util.Map;
  * @Version 1.0
  */
 public interface UserService {
-    /**
-     * 根据用户名查询
-     * @param username
-     * @return
-     */
-    Map<String, Object> selectbyname(String username);
 
-    /**
-     * 注册
-     * @param username
-     * @param password
-     */
-    boolean insertData(String username, String password);
+//    Map<String, Object> selectbyname(String username);
+
+
+//    boolean insertData(String username, String password);
+
+    boolean insserttt(User user);
+
+    User selectUsername(String username);
 }

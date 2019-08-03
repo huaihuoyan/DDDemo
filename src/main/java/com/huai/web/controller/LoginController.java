@@ -33,18 +33,7 @@ public class LoginController {
         return mav;
     }
 
-    @RequestMapping("/look3")
-    public ModelAndView look3(){
-        ModelAndView mav   =   new ModelAndView();
-        mav.setViewName("logining/singon");
-        return mav;
-    }
-    @RequestMapping("/look4")
-    public ModelAndView look4(){
-        ModelAndView mav   =   new ModelAndView();
-        mav.setViewName("logining/singup2");
-        return mav;
-    }
+
     @RequestMapping("/look5")
     public ModelAndView look5(){
         ModelAndView mav   =   new ModelAndView();

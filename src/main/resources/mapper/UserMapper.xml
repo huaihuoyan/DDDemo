@@ -1,25 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.huai.web.dao.UserDao">
-    <resultMap id="User" type="com.huai.web.entity.User">
-        <result column="ID" property="id" />
-        <result column="USERNAME" property="username"/>
-        <result column="PASSWORD" property="password" />
-        <result column="CREATETIME" property="createtime"  />
-        <result column="UPDATETIME" property="updatetime"  />
+    <!--<resultMap id="User" type="com.huai.web.entity.User">-->
+        <!--<result column="ID" property="uid" />-->
+        <!--<result column="USERNAME" property="username"/>-->
+        <!--<result column="PASSWORD" property="password" />-->
+        <!--<result column="CREATETIME" property="createtime"  />-->
+        <!--<result column="UPDATETIME" property="updatetime"  />-->
+    <!--</resultMap>-->
+
+    <resultMap id="BaseResultMap" type="com.huai.web.entity.User" >
+        <constructor >
+            <idArg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+        </constructor>
     </resultMap>
 
-    <!--根据用户名查询-->
-    <select id="selectbyname" parameterType="java.lang.String" resultType="java.util.Map">
-        SELECT ID, USERNAME, PASSWORD FROM T_USER
-          WHERE USERNAME = #{username,jdbcType=VARCHAR}
+    <resultMap type="com.huai.web.entity.User" id="userMap">
+        <id property="uid" column="uid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <collection property="roles" ofType="com.huai.web.entity.Role">
+            <id property="rid" column="rid"/>
+            <result property="rname" column="rname"/>
+            <collection property="perssion" ofType="com.huai.web.entity.Perssion">
+                <id property="pid" column="pid"/>
+                <result property="pname" column="pname"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        uid, username, password
+  </sql>
+
+    <insert id="insert" parameterType="com.huai.web.entity.User" >
+        insert into T_USER (ID, USERNAME, PASSWORD
+          )
+        values (#{uid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+          )
+  </insert>
+
+
+
+    <select id="selectByusernamey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from T_USER
+        where USERNAME = #{username,jdbcType=INTEGER}
     </select>
 
-    <!--注册-->
-    <insert id="insertData"  parameterType="java.util.Map">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from T_USER
+        where ID = #{uid,jdbcType=INTEGER}
+    </select>
+
+    <select id="queryUserName" parameterType="string" resultMap="userMap">
+        SELECT u.*,r.*,m.* FROM T_USER u inner join USER_ROLE ur on ur.UID=u.ID
+        inner join T_ROLE r on r.ID=ur.RID
+        inner join ROLE_PERSSION mr on mr.RID=r.ID
+        inner join T_PERSSION m on mr.PID=m.ID
+        WHERE USERNAME=#{username};
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_USER
+    where ID = #{uid,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.huai.web.entity.User" >
         insert into T_USER
         <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
+            <if test="uid != null" >
                 ID,
             </if>
             <if test="username != null" >
@@ -28,31 +82,84 @@
             <if test="password != null" >
                 PASSWORD,
             </if>
-            <if test="createtime != null" >
-                CREATETIME,
-            </if>
-            <if test="updatetime != null" >
-                UPDATETIME,
-            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
-                #{id},
+            <if test="uid != null" >
+                #{uid,jdbcType=INTEGER},
             </if>
             <if test="username != null" >
-                #{username},
+                #{username,jdbcType=VARCHAR},
             </if>
             <if test="password != null" >
-                #{password},
-            </if>
-            <if test="createtime != null" >
-                #{createtime},
-            </if>
-            <if test="updatetime != null" >
-                #{updatetime},
+                #{password,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.huai.web.entity.User" >
+        update T_USER
+        <set >
+            <if test="username != null" >
+                USERNAME = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                PASSWORD = #{password,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{uid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.huai.web.entity.User" >
+    update T_USER
+    set USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR}
+    where ID = #{uid,jdbcType=INTEGER}
+  </update>
+
+
+
+    <!--&lt;!&ndash;根据用户名查询&ndash;&gt;-->
+    <!--<select id="selectbyname" parameterType="java.lang.String" resultType="java.util.Map">-->
+        <!--SELECT ID, USERNAME, PASSWORD FROM T_USER-->
+          <!--WHERE USERNAME = #{username,jdbcType=VARCHAR}-->
+    <!--</select>-->
+
+    <!--&lt;!&ndash;注册&ndash;&gt;-->
+    <!--<insert id="insertData"  parameterType="java.util.Map">-->
+        <!--insert into T_USER-->
+        <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->
+            <!--<if test="uid != null" >-->
+                <!--ID,-->
+            <!--</if>-->
+            <!--<if test="username != null" >-->
+                <!--USERNAME,-->
+            <!--</if>-->
+            <!--<if test="password != null" >-->
+                <!--PASSWORD,-->
+            <!--</if>-->
+            <!--<if test="createtime != null" >-->
+                <!--CREATETIME,-->
+            <!--</if>-->
+            <!--<if test="updatetime != null" >-->
+                <!--UPDATETIME,-->
+            <!--</if>-->
+        <!--</trim>-->
+        <!--<trim prefix="values (" suffix=")" suffixOverrides="," >-->
+            <!--<if test="uid != null" >-->
+                <!--#{uid},-->
+            <!--</if>-->
+            <!--<if test="username != null" >-->
+                <!--#{username},-->
+            <!--</if>-->
+            <!--<if test="password != null" >-->
+                <!--#{password},-->
+            <!--</if>-->
+            <!--<if test="createtime != null" >-->
+                <!--#{createtime},-->
+            <!--</if>-->
+            <!--<if test="updatetime != null" >-->
+                <!--#{updatetime},-->
+            <!--</if>-->
+        <!--</trim>-->
+    <!--</insert>-->
 
 
 </mapper>

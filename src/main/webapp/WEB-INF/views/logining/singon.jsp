@@ -24,17 +24,24 @@
 
 <div class="login-main">
     <header class="layui-elip">登录</header>
-    <form class="layui-form">
+    <form class="layui-form" onsubmit="return false">
         <div class="layui-input-inline">
-            <input type="text" name="account" required lay-verify="required" placeholder="用户名" autocomplete="off"
+            <input type="text" name="username" required lay-verify="required" placeholder="用户名" autocomplete="off"
                    class="layui-input">
         </div>
         <div class="layui-input-inline">
             <input type="password" name="password" required lay-verify="required" placeholder="密码" autocomplete="off"
                    class="layui-input">
         </div>
-        <div class="layui-input-inline login-btn">
-            <button lay-submit lay-filter="login" class="layui-btn">登录</button>
+        <div class="layui-form-item">
+
+                <div type="button" class="layui-btn " style="border-radius: 100px; width: 95%;
+            background-color: #33ab9f;margin-top: 10px;color: #ffffff"
+                     lay-submit="" lay-filter="save_id" >
+                    保存
+                </div>
+
+
         </div>
         <hr/>
         <!--<div class="layui-input-inline">
@@ -43,7 +50,7 @@
         <div class="layui-input-inline">
             <button type="button" class="layui-btn layui-btn-normal">微信登录</button>
         </div>-->
-        <p><a href="register.html" class="fl">立即注册</a><a href="javascript:;" class="fr">忘记密码？</a></p>
+        <p><a href="<%=path%>/ddl/look4" class="fl">立即注册</a><a href="javascript:;" class="fr">忘记密码？</a></p>
     </form>
 </div>
 
@@ -54,19 +61,19 @@
         // 操作对象
         var form = layui.form;
         var $ = layui.jquery;
-        form.on('submit(login)',function (data) {
+        form.on('submit(save_id)',function (data) {
             // console.log(data.field);
             $.ajax({
-                url:'login.php',
+                url:'<%=path%>/loginUser',
                 data:data.field,
                 dataType:'text',
                 type:'post',
                 success:function (data) {
-                    if (data == '1'){
-                        location.href = "../index.php";
-                    }else{
-                        layer.msg('登录名或密码错误');
-                    }
+                    // if (data == '1'){
+                    //     location.href = "../index.php";
+                    // }else{
+                    //     layer.msg('登录名或密码错误');
+                    // }
                 }
             })
             return false;

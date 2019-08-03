@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huai.web.dao.PerssionDao" >
+    <resultMap id="BaseResultMap" type="com.huai.web.entity.Perssion" >
+        <constructor >
+            <idArg column="pid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="pname" jdbcType="VARCHAR" javaType="java.lang.String" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        pid, pname
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from T_PERSSION
+        where ID = #{pid,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from T_PERSSION
+        where ID = #{pid,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.huai.web.entity.Perssion" >
+        insert into T_PERSSION (ID, PNAME)
+        values (#{pid,jdbcType=INTEGER}, #{pname,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.huai.web.entity.Perssion" >
+        insert into T_PERSSION
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="pid != null" >
+                ID,
+            </if>
+            <if test="pname != null" >
+                PNAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="pid != null" >
+                #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="pname != null" >
+                #{pname,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.huai.web.entity.Perssion" >
+        update T_PERSSION
+        <set >
+            <if test="pname != null" >
+                PNAME = #{pname,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{pid,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.huai.web.entity.Perssion" >
+        update T_PERSSION
+        set PNAME = #{pname,jdbcType=VARCHAR}
+        where ID = #{pid,jdbcType=INTEGER}
+    </update>
+
+</mapper>
